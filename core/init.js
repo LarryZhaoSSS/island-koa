@@ -7,8 +7,14 @@ class InitManager {
     InitManager.app = app
     InitManager.initLoadRouters()
     InitManager.loadHttpException()
+    InitManager.loadConfig()
   }
-  static initLoadRouters () {
+  static loadConfig(path = '') {
+    const configPath = path || process.cwd() + '/config/config.js'
+    const config = require(configPath)
+    global.config = config
+  }
+  static initLoadRouters() {
     // path config
     const apiDirecotry = `${process.cwd()}/app/api`
     requireDirectory(module, apiDirecotry, { visit: whenLoadModule })
@@ -18,7 +24,7 @@ class InitManager {
       }
     }
   }
-  static loadHttpException () {
+  static loadHttpException() {
     const errors = require('./http-exception')
     global.errs = errors
   }
