@@ -2,6 +2,7 @@
 /dist/*
 /doc/
 /test-results/
+/config/
 .vscode
 # Logs
 logs
