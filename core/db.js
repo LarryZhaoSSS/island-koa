@@ -13,10 +13,10 @@ const sequelize = new Sequelize(dbName,user,password,{
   logging: true,
   timezone: '+08:00',
   define:{
-
+    underscored: true
   }
 })
-
+sequelize.sync()
 module.exports = {
-  db:sequelize
+  sequelize
 }
