@@ -25,6 +25,6 @@
   },
   "scripts": {
     "start:dev": "nodemon --inspect-brk",
-    "start:prod": "node app.js"
+    "start:prod": "nodemon app.js"
   }
 }
