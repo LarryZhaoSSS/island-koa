@@ -1,3 +1,7 @@
 module.exports = {
-  environment: 'dev'
-}
+  environment: 'dev',
+  security: {
+    secretKey: 'abcedf',
+    expiresIn: 60 * 60,
+  },
+};
