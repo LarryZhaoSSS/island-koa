@@ -5,9 +5,7 @@ const router = new Router({
 const { Auth } = require('../../../middlewares/auth');
 const { PositiveIntegerValidator } = require('../../validators/validator');
 
-router.get('/latest', new Auth().m, async (ctx, next) => {
-  ctx.body = {
-    key: '11111',
-  };
+router.get('/latest', new Auth(8).m, async (ctx, next) => {
+  ctx.body = ctx.auth.uid;
 });
 module.exports = router;

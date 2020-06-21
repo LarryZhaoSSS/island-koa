@@ -11,7 +11,7 @@ const catchError = async (ctx, next)=> {
       ctx.body = {
         msg: error.msg,
         error_code: error.errorCode,
-        request: `${ctx.method} ${ctx.path}}`
+        request: `${ctx.method} ${ctx.path}`
       }
       ctx.status = error.code
     } else {
