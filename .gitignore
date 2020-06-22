@@ -2,7 +2,7 @@
 /dist/*
 /doc/
 /test-results/
-/config/
+/config/*
 .vscode
 # Logs
 logs
