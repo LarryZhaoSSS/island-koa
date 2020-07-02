@@ -1,6 +1,6 @@
 const { LinValidator, Rule } = require('../../core/lin-validator-v2');
 const { User } = require('../models/user');
-const { LoginType } = require('../lib/enum');
+const { LoginType, ArtType } = require('../lib/enum');
 class PositiveIntegerValidator extends LinValidator {
   constructor() {
     super();
@@ -76,19 +76,49 @@ class NotEmptyValidator extends LinValidator {
   }
 }
 function checkType(vals) {
-  if (!vals.body.type) {
+  const type = vals.body.type || vals.path.type;
+  if (!type) {
     throw new Error('type是必须参数');
   }
-  if (!LoginType.isThisType(vals.body.type)) {
+  if (!LoginType.isThisType(type - 0)) {
     throw new Error('type参数不合法');
+  }
+}
+function checkArtType(vals) {
+  const type = vals.body.type || vals.path.type;
+  if (!type) {
+    throw new Error('type是必须参数');
+  }
+  if (!ArtType.isThisType(type - 0)) {
+    throw new Error('type参数不合法');
+  }
+}
+class Checker {
+  constructor(type) {
+    this.enumType = type;
+  }
+  check(vals) {
+    const type = vals.body.type || vals.path.type;
+    if (!type) {
+      throw new Error('type是必须参数');
+    }
+    if (!this.enumType.isThisType(type - 0)) {
+      throw new Error('type参数不合法');
+    }
   }
 }
 class LikeValidator extends PositiveIntegerValidator {
   constructor() {
     super();
-    console.log('---likeValidator');
-    this.validateType = checkType;
+    const checker = new Checker(ArtType);
+    this.validateType = checker.check.bind(checker);
   }
+}
+class ClassicValidator extends LikeValidator {
+  // constructor() {
+  //   super();
+  //   this.validateType = checkArtType;
+  // }
 }
 module.exports = {
   PositiveIntegerValidator,
@@ -96,4 +126,5 @@ module.exports = {
   TokenValidator,
   NotEmptyValidator,
   LikeValidator,
+  ClassicValidator,
 };
