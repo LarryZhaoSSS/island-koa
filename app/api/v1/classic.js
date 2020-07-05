@@ -83,4 +83,16 @@ router.get('/:type/:id/favor', new Auth().m, async (ctx) => {
     like_status: like,
   };
 });
+router.get('/:type/:id', new Auth().m, async (ctx) => {
+  const v = await new ClassicValidator().validate(ctx);
+  const id = v.get('path.id');
+  const type = v.get('path.type');
+  const artDetail = await new Art(id, type).getDetail(ctx.auth.uid);
+  artDetail.art.setDataValue('like_status', artDetail.like_status);
+  ctx.body = artDetail.art;
+});
+router.get('/favor', new Auth().m, async (ctx) => {
+  const uid = ctx.auth.uid;
+  ctx.body = await Favor.getMyClassicFavors(uid);
+});
 module.exports = router;
