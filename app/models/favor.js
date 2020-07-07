@@ -82,6 +82,25 @@ class Favor extends Model {
     }
     return await Art.getList(arts);
   }
+  static async getBookFavor(uid, bookId) {
+    const favorNums = await Favor.count({
+      where: {
+        art_id: bookId,
+        type: 400,
+      },
+    });
+    const myFavor = await Favor.findOne({
+      where: {
+        art_id: bookId,
+        uid,
+        type: 400,
+      },
+    });
+    return {
+      fav_nums: favorNums,
+      like_status: myFavor ? 1 : 0,
+    };
+  }
 }
 
 Favor.init(
