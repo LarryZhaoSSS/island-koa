@@ -28,12 +28,12 @@ class Comment extends Model {
       });
     }
   }
-  toJSON() {
-    return {
-      content: this.getDataValue('content'),
-      nums: this.getDataValue('nums'),
-    };
-  }
+  // toJSON() {
+  //   return {
+  //     content: this.getDataValue('content'),
+  //     nums: this.getDataValue('nums'),
+  //   };
+  // }
 }
 Comment.init(
   {
